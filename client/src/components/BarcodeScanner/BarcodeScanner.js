@@ -28,27 +28,37 @@ class BarcodeScanner extends React.Component {
 		fetch(url).then(res => res.json())
 			.then(result => {
 				const data = JSON.parse(result.data);
+
+				// TODO: clean up data
+				this.props.productHandler(data);
 				console.log(data);
+				const companyName = data.BSIN.name;
+				this.scrapeRedditForStories(companyName);
 			});
 	}
 
 	scrapeRedditForStories(searchTerm) {
-		let url = `api/reddit/${searchTerm}`;
+
+		const sanitizedSearchTerm = searchTerm.replace(/é/g, 'e');
+		let url = `api/reddit/${sanitizedSearchTerm}`;
 
 		fetch(url).then(res => res.json())
 			.then(result => {
 				const data = JSON.parse(result.data);
 				console.log(data);
+
+				// TODO: clean up data
+				this.props.storiesHandler(data);
+				this.props.history.push('/product');
 			});
 	}
 
 	componentDidMount() {
 		this.barcodeScanner.start();
-
-		// this.scrapeRedditForStories('nestle');
 	}
 
 	render() {
+		console.log(this.props);
 		return (
 			<div>
 				<button onClick={this.barcodeScanner.start}>RESET</button>

@@ -9,11 +9,10 @@ class ScannerPage extends React.Component {
 
 	render() {
 		const hideScanButton = this.props.location.pathname === '/';
-		console.log(this.props)
 		return (
 			<div id="ScannerPage">
 				<Navbar hideScanButton={hideScanButton}/>
-				<BarcodeScanner/>
+				<BarcodeScanner {...this.props}/>
 				<RecentlyViewedTray className="recentlyViewed"/>
 			</div>
 		);

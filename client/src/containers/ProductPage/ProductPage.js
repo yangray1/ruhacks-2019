@@ -4,6 +4,7 @@ import Navbar from 'components/Navbar/Navbar';
 class ProductPage extends React.Component {
 
 	render() {
+		console.log(this.props);
 		return (
 			<div id="ProductPage">
 				<Navbar/>
