@@ -2,6 +2,7 @@
   "name": "ruhacks-2019",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "quagga": "^0.12.1",
     "react": "^16.8.6",

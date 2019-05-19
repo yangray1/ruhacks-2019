@@ -8,8 +8,6 @@ class BarcodeScanner {
 	}
 
 	start() {
-		console.log(this.mountingElement);
-
 		Quagga.init({
 			inputStream : {
 				name : "Live",
@@ -48,7 +46,6 @@ class BarcodeScanner {
 		});
 
 		Quagga.onDetected((data) => {
-			console.log(data);
 			this.detectionCB(data)
 			Quagga.stop();
 		})

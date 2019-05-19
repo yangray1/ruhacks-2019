@@ -23,26 +23,19 @@ class App extends React.Component {
 		return gtin;
 	}
 
-
-
 	barcodeDetectionHandler(data) {
-		console.log(this);
+		const gtin = this.parseBarcodeToGTIN(data);
 
-		const code = this.parseBarcodeToGTIN(data);
+		let url = `api/product/${gtin}`;
 
-		let url = `https://product-open-data.com/api/gtin/${code}/?format=json`;
+		fetch(url).then((res) => {
+			res.json().then(result => {
+				const data = JSON.parse(result.data);
+				console.log(data);
 
-		fetch(url, {
-			mode: "no-cors"
-		}).then((res) => {
-			console.log(res);
-
-			// res.json()
+			})
 		});
-			// .then(result => this.setState({ users: result.users }))
 	}
-
-
 
 	componentDidMount() {
 		this.barcodeScanner.start();
@@ -56,6 +49,7 @@ class App extends React.Component {
 					<p>
 						Edit <code>src/App.js</code> and save to save.
 					</p>
+					<button onClick={this.barcodeScanner.start}>RESET</button>
 					<a
 						className="App-link"
 						href="https://reactjs.org"
@@ -66,7 +60,6 @@ class App extends React.Component {
 					</a>
 
 					<div id="barcodeScannerViewport"></div>
-					<button onClick={this.barcodeScanner.start}>RESET</button>
 				</header>
 			</div>
 		);
