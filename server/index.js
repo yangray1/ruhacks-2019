@@ -35,25 +35,20 @@ app.get("/api/product/:gtin", (req, res) => {
 });
 
 
-// app.get("/api/reddit/:term", (req, res) => {
-//     const search = function(searchTerm, searchLimit, sortBy) {
-//         return fetch(`http://www.reddit.com/search.json?q=${searchTerm}&sort=${sortBy}&limit=${searchLimit}`)
-//             .then(result => result.json())
-//             .then(data => data.data.children.map(data => {
-//                 return data.data;
-//             }))
-//             .catch(err => console.log(err));
-//     }
-//
-// // using search.
-//     search("league", "10", "relevance").then(results => {
-//         // console.log(results);
-//         results.map(oneResult => {
-//             console.log("title: ", oneResult.title);
-//             console.log("selftext: ", oneResult.selftext);
-//         })
-//     })
-// });
+app.get("/api/reddit/:term", (req, res) => {
+	const searchTerm = req.params.term;
+	const numStories = 10;
+	const sortBy = "relevance"
+	const subreddit = "news"
+
+    const url = `http://www.reddit.com/r/${subreddit}/search.json?q=${searchTerm}&sort=${sortBy}&limit=${numStories}`;
+
+	request({uri: url, simple: true}).then(extRes => {
+		res.json({error: null, data: extRes});
+	}).catch((err) => {
+		res.json({error: err, data: null});
+	})
+});
 
 app.listen(port, () => {
     console.log(`Server listening on ${port}`);

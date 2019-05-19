@@ -28,17 +28,27 @@ class App extends React.Component {
 
 		let url = `api/product/${gtin}`;
 
-		fetch(url).then((res) => {
-			res.json().then(result => {
+		fetch(url).then(res => res.json())
+			.then(result => {
 				const data = JSON.parse(result.data);
 				console.log(data);
+			});
+	}
 
-			})
-		});
+	scrapeRedditForStories(searchTerm) {
+		let url = `api/reddit/${searchTerm}`;
+
+		fetch(url).then(res => res.json())
+			.then(result => {
+				const data = JSON.parse(result.data);
+				console.log(data);
+			});
 	}
 
 	componentDidMount() {
 		this.barcodeScanner.start();
+
+		// this.scrapeRedditForStories('nestle');
 	}
 
 	render() {
