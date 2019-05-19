@@ -1,4 +1,6 @@
 import React from 'react';
+import AlternativesList from 'components/AlternativesList/AlternativesList.js';
+
 import './ProductDetails.sass';
 
 import nestleLogo from 'assets/nestle.png';
@@ -1230,17 +1232,31 @@ const propsStories = {
 
 class ProductDetails extends React.Component {
 
+	tabs = ["Top Stories", "Local Alternatives"];
+	state = {
+		activeTab: "Top Stories"
+	}
+
+	tabClickHandlerFactory(tab) {
+		return (event) => {
+			this.setState({activeTab: tab});
+			console.log(tab);
+		}
+	}
+
 	render() {
-		console.log(propsProduct)
+		console.log(this.props)
 
-		// const company = this.props.product.BSIN;
-		const company = propsProduct.product.BSIN;
-
-		const product = propsProduct.product;
+		const product = this.props.product || propsProduct.product;
+		const company = product.BSIN;
 
 		const companyClickHandler = () => {
 			window.open(company.link, "_blank");
 		}
+
+		const tabComponents = this.tabs.map((el, idx) => (
+			<div className={`tab ${el === this.state.activeTab && "active"}`} onClick={this.tabClickHandlerFactory(el)} key={idx}>{el}</div>
+		))
 
 		const imgSrc = company.name == "Nestlé" ? nestleLogo : company.img;
 
@@ -1289,6 +1305,17 @@ class ProductDetails extends React.Component {
 							Ulf Mark Schneider
 						</div>
 					</div>
+
+
+					{/*Tabs*/}
+					<div className="tabs">
+						{tabComponents}
+					</div>
+
+					{this.state.activeTab == "Local Alternatives" && <AlternativesList/>}
+
+
+
 				</div>
 			</div>
 		);

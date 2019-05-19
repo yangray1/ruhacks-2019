@@ -20,10 +20,10 @@ class BarcodeScannerController {
 			},
 			decoder : {
 				readers : [
-					"code_128_reader",
+					// "code_128_reader",
 					"upc_reader",
 					"upc_e_reader",
-					"ean_8_reader",
+					// "ean_8_reader",
 				]
 			},
 			locator: {

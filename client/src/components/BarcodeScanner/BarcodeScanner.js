@@ -21,17 +21,18 @@ class BarcodeScanner extends React.Component {
 	}
 
 	barcodeDetectionHandler(data) {
+		console.log(data);
 		const gtin = this.parseBarcodeToGTIN(data);
 
 		let url = `api/product/${gtin}`;
 
 		fetch(url).then(res => res.json())
 			.then(result => {
+				console.log(result);
 				const data = JSON.parse(result.data);
 
 				// TODO: clean up data
 				this.props.productHandler(data);
-				console.log(data);
 				const companyName = data.BSIN.name;
 				this.scrapeRedditForStories(companyName);
 			});
@@ -48,7 +49,7 @@ class BarcodeScanner extends React.Component {
 				console.log(data);
 
 				// TODO: clean up data
-				this.props.storiesHandler(data);
+				this.props.storiesHandler(data.data.children);
 				this.props.history.push('/product');
 			});
 	}
