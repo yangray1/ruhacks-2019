@@ -1,14 +1,14 @@
 import React from 'react';
 import Navbar from 'components/Navbar/Navbar';
+import ProductDetails from 'components/ProductDetails/ProductDetails';
 
 class ProductPage extends React.Component {
 
 	render() {
-		console.log(this.props);
 		return (
 			<div id="ProductPage">
 				<Navbar/>
-				<h2>SDASDSADASDASD</h2>
+				<ProductDetails {...this.props}/>
 			</div>
 		);
 	}

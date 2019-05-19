@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import './App.css';
+import './App.sass';
 
 import ScannerPage from 'containers/ScannerPage/ScannerPage';
 import ProductPage from 'containers/ProductPage/ProductPage';
