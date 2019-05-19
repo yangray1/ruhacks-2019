@@ -4,7 +4,6 @@ import logo from './logo.svg';
 import './App.css';
 
 import ScannerPage from 'containers/ScannerPage/ScannerPage';
-import BarcodeScanner from 'components/BarcodeScanner/BarcodeScanner';
 
 class App extends React.Component {
 
@@ -14,9 +13,6 @@ class App extends React.Component {
 			<Switch>
 				<div className="App">
 					<Route exact path="/" component={ScannerPage}></Route>
-					<header className="App-header">
-						<BarcodeScanner/>
-					</header>
 				</div>
 			</Switch>
 		);
