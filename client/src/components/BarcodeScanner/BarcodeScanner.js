@@ -61,7 +61,6 @@ class BarcodeScanner extends React.Component {
 		console.log(this.props);
 		return (
 			<div>
-				<button onClick={this.barcodeScanner.start}>RESET</button>
 				<div id="barcodeScannerViewport"></div>
 			</div>
 		)
