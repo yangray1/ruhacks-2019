@@ -7,7 +7,7 @@ class RecentlyViewed extends React.Component {
 			<div className="recentlyViewedItem" >
 				<img src={this.props.logo} alt="logo"/>
 			</div>
-		)
+		);
 	}
 }
 

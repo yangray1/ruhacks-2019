@@ -11,8 +11,8 @@ class RecentlyViewedTray extends React.Component {
 	render() {
 
 		const logoArray = [nestle, forever21Logo, doleLogo];
-		const recentlyViewedItems = logoArray.map(el => {
-			return (<RecentlyViewed logo={el} />)
+		const recentlyViewedItems = logoArray.map((el, idx) => {
+			return (<RecentlyViewed logo={el} key={idx} />)
 		})
 
 		return (
@@ -22,7 +22,7 @@ class RecentlyViewedTray extends React.Component {
 					{recentlyViewedItems}
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
