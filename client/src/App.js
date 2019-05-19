@@ -1,77 +1,59 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
-import BarcodeScanner from './utils/BarcodeScanner';
+import ScannerPage from 'containers/ScannerPage/ScannerPage';
+import ProductPage from 'containers/ProductPage/ProductPage';
 
 class App extends React.Component {
 
 	constructor() {
 		super();
+		this.state = {
+			product: null,
+			stories: null
+		};
 
-		this.parseBarcodeToGTIN = this.parseBarcodeToGTIN.bind(this);
-		this.barcodeDetectionHandler = this.barcodeDetectionHandler.bind(this);
-		this.barcodeScanner = new BarcodeScanner('#barcodeScannerViewport', this.barcodeDetectionHandler);
+		this.updateProduct = this.updateProduct.bind(this);
+		this.updateStories = this.updateStories.bind(this);
 	}
 
 
-
-	parseBarcodeToGTIN(data) {
-		const upc = data.codeResult.code;
-		const gtin = upc.padStart(13, '0');
-
-		return gtin;
+	updateProduct(product) {
+		this.setState({product: product});
 	}
 
-	barcodeDetectionHandler(data) {
-		const gtin = this.parseBarcodeToGTIN(data);
-
-		let url = `api/product/${gtin}`;
-
-		fetch(url).then(res => res.json())
-			.then(result => {
-				const data = JSON.parse(result.data);
-				console.log(data);
-			});
+	updateStories(stories) {
+		this.setState({stories: stories});
 	}
 
-	scrapeRedditForStories(searchTerm) {
-		let url = `api/reddit/${searchTerm}`;
-
-		fetch(url).then(res => res.json())
-			.then(result => {
-				const data = JSON.parse(result.data);
-				console.log(data);
-			});
-	}
-
-	componentDidMount() {
-		this.barcodeScanner.start();
-
-		// this.scrapeRedditForStories('nestle');
-	}
 
 	render() {
 		return (
-			<div className="App">
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<p>
-						Edit <code>src/App.js</code> and save to save.
-					</p>
-					<button onClick={this.barcodeScanner.start}>RESET</button>
-					<a
-						className="App-link"
-						href="https://reactjs.org"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Learn React
-					</a>
-
-					<div id="barcodeScannerViewport"></div>
-				</header>
-			</div>
+			<Switch>
+				<div className="App">
+					<Route
+						exact path="/"
+						render={(routeProps) => (
+							<ScannerPage
+								{...routeProps}
+								productHandler={this.updateProduct}
+								storiesHandler={this.updateStories}
+							/>
+						)}>
+					</Route>
+					<Route
+						path="/product"
+						render={(routeProps) => (
+							<ProductPage
+								{...routeProps}
+								product={this.state.product}
+								stories={this.state.stories}
+							/>
+						)}>
+					</Route>
+				</div>
+			</Switch>
 		);
 	}
 }

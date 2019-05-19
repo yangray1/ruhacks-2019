@@ -28,6 +28,7 @@ app.get("/api/product/:gtin", (req, res) => {
         uri: url,
         simple: true
     }).then((extRes) => {
+	    console.log({productDB: extRes});
 		res.json({error: null, data: extRes});
     }).catch((err) => {
         res.json({error: err, data: null});
@@ -43,9 +44,12 @@ app.get("/api/reddit/:term", (req, res) => {
 
     const url = `http://www.reddit.com/r/${subreddit}/search.json?q=${searchTerm}&sort=${sortBy}&limit=${numStories}`;
 
+
 	request({uri: url, simple: true}).then(extRes => {
+		console.log({redditStories: extRes});
 		res.json({error: null, data: extRes});
 	}).catch((err) => {
+		console.log(err);
 		res.json({error: err, data: null});
 	})
 });

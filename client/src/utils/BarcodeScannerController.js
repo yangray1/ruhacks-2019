@@ -1,6 +1,6 @@
 import Quagga from 'quagga'; // ES6
 
-class BarcodeScanner {
+class BarcodeScannerController {
 	constructor(mountingElement, detectionCB) {
 		this.mountingElement = mountingElement;
 		this.detectionCB = detectionCB;
@@ -13,6 +13,10 @@ class BarcodeScanner {
 				name : "Live",
 				type : "LiveStream",
 				target: document.querySelector(this.mountingElement),
+				constraints: {
+					width: 327,
+					height: 536,
+				}
 			},
 			decoder : {
 				readers : [
@@ -52,4 +56,4 @@ class BarcodeScanner {
 	}
 }
 
-export default BarcodeScanner;
+export default BarcodeScannerController;
