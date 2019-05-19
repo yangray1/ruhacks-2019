@@ -1,5 +1,6 @@
 import React from 'react';
 import AlternativesList from 'components/AlternativesList/AlternativesList.js';
+import StoriesList from 'components/StoriesList/StoriesList.js';
 
 import './ProductDetails.sass';
 
@@ -1249,6 +1250,7 @@ class ProductDetails extends React.Component {
 
 		const product = this.props.product || propsProduct.product;
 		const company = product.BSIN;
+		const stories = this.props.stories || propsStories.stories.data.children;
 
 		const companyClickHandler = () => {
 			window.open(company.link, "_blank");
@@ -1313,6 +1315,7 @@ class ProductDetails extends React.Component {
 					</div>
 
 					{this.state.activeTab == "Local Alternatives" && <AlternativesList/>}
+					{this.state.activeTab == "Top Stories" && <StoriesList stories={stories}/>}
 
 
 
